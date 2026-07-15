@@ -1,0 +1,125 @@
+# 📘 Playwright Project Setup Notes
+
+## 🔹 Step 1: Create Project Folder
+
+* Create a new folder for your project
+* Open terminal inside the folder
+
+```bash
+mkdir playwright-project
+cd playwright-project
+```
+
+---
+
+## 🔹 Step 2: Initialize Playwright
+
+* Run the command:
+
+```bash
+npm init playwright@latest
+```
+
+* This will:
+
+  * Initialize a Node.js project
+  * Install Playwright and dependencies
+  * Create a default project structure automatically
+
+---
+
+## 🔹 Step 3: Project Folder Structure
+
+```
+playwright-project/
+│
+├── .github/              
+│   └── workflows/        # CI/CD configurations
+│
+├── node_modules/         # Installed dependencies
+│
+├── tests/                # Test files
+│   └── example.spec.js
+│
+├── .gitignore            # Ignore files for Git
+├── package.json          # Project configuration
+├── package-lock.json     # Dependency lock file
+├── playwright.config.js  # Main Playwright config file
+```
+
+---
+
+## 🔹 Step 4: Important Files
+
+### 📁 node_modules
+
+* Contains all installed packages
+* Automatically managed by npm
+
+### 📁 tests
+
+* Place to write test cases
+
+### 📄 package.json
+
+* Default Node.js file
+* Contains:
+
+  * Dependencies
+  * Scripts
+  * Project details
+
+### 📄 playwright.config.js
+
+* Main configuration file
+* Controls:
+
+  * Browser settings
+  * Test folder
+  * Timeouts
+  * Reports
+
+---
+
+## 🔹 Step 5: Sample playwright.config.js
+
+```js
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+
+  timeout: 30000,
+
+  retries: 1,
+
+  use: {
+    headless: true,
+    browserName: 'chromium',
+    baseURL: 'https://example.com',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure'
+  },
+
+  reporter: 'html'
+});
+```
+
+---
+
+## 🔹 Step 6: Run Tests
+
+```bash
+npx playwright test
+```
+
+---
+
+## 🔹 Key Points to Remember
+
+* Playwright supports multiple browsers (Chromium, Firefox, WebKit)
+* Tests are written inside the `tests` folder
+* Config file controls entire test execution
+* Use `npx playwright test` to run all tests
+
+---

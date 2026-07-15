@@ -1,0 +1,31 @@
+1).npm run test 
+                Runs command from package.json
+                Usually runs all test files
+                Uses project config (playwright.config.js)
+                Standard command for teams/projects
+
+
+2).npx playwright test file_name
+                  Runs Playwright directly
+                  Executes only one specific test file
+                  Faster for development
+                  No need to depend on package.json scripts
+3).npx playwright test file_name  --debug 
+                  Runs test in debug mode
+                  Opens browser + Playwright Inspector
+                  Allows step-by-step execution
+                  Helps find errors easily
+4).npx playwright test v10.spec.js --headed
+                  Single file run headless
+
+
+5).npm install -D allure-playwright
+            npx allure generate ./allure-results
+            Or 
+            npx allure open ./allure-report
+
+
+
+
+
+  
