@@ -1,106 +1,78 @@
-require('dotenv').config();
 const { expect } = require('@playwright/test');
+const { DashboardLocators } = require('../locators/DashboardLocators');
+
 
 class DashboardPage {
 
+    constructor(page) {
 
-  constructor(page) {
+        this.page = page;
 
-    this.page = page;
-
-
-    // Dashboard title
-    this.dashboardTitle = page.locator(
-      "//span[contains(@class,'header-title') and contains(@class,'phz-px-xs')]"
-    );
+        this.locators = new DashboardLocators(page);
+    }
 
 
-    // Dashboard cards
+    async verifyDashboard() {
 
-    this.statTitle = page.locator(".stat-title");
-
-    this.statValue = page.locator(".stat-value");
-
-    this.statSubtitle = page.locator(".stat-subtitle");
-
-  }
+        await expect(this.locators.dashboardTitle)
+            .toBeVisible();
 
 
-
-  async verifyDashboard() {
-
-
-    await expect(this.dashboardTitle)
-      .toBeVisible();
-
-
-    await expect(this.dashboardTitle)
-      .toHaveText("Dashboard");
-
-  }
-
-
-
-
-  async verifyDashboardCards() {
-
-
-    const cardNames = [
-
-      "Total Devices",
-
-      "Connected Devices",
-
-      "Files Today",
-
-      "Data Transferred"
-
-    ];
-
-
-    for(let i=0; i<4; i++){
-
-
-      const title =
-        await this.statTitle.nth(i).innerText();
-
-
-      const value =
-        await this.statValue.nth(i).innerText();
-
-
-      const subtitle =
-        await this.statSubtitle.nth(i).innerText();
-
-
-
-      console.log("\n----------------");
-
-      console.log(cardNames[i]);
-
-      console.log("Title :", title);
-
-      console.log("Value :", value);
-
-      console.log("Status:", subtitle);
-
-
-
-      await expect(this.statTitle.nth(i))
-        .toBeVisible();
-
-
-      await expect(this.statValue.nth(i))
-        .toBeVisible();
-
-
-      await expect(this.statSubtitle.nth(i))
-        .toBeVisible();
+        await expect(this.locators.dashboardTitle)
+            .toHaveText("Dashboard");
 
     }
 
-  }
 
+
+    async verifyDashboardCards() {
+
+        const cardNames = [
+            "Total Devices",
+            "Connected Devices",
+            "Files Today",
+            "Data Transferred"
+        ];
+
+
+        for (let i = 0; i < cardNames.length; i++) {
+
+
+            await expect(this.locators.statTitle.nth(i))
+                .toBeVisible();
+
+
+            await expect(this.locators.statValue.nth(i))
+                .toBeVisible();
+
+
+            await expect(this.locators.statSubtitle.nth(i))
+                .toBeVisible();
+
+
+
+            const title =
+                await this.locators.statTitle.nth(i).innerText();
+
+
+            const value =
+                await this.locators.statValue.nth(i).innerText();
+
+
+            const subtitle =
+                await this.locators.statSubtitle.nth(i).innerText();
+
+
+
+            console.log("\n----------------");
+            console.log(cardNames[i]);
+            console.log("Title :", title);
+            console.log("Value :", value);
+            console.log("Status:", subtitle);
+
+        }
+
+    }
 
 }
 

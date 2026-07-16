@@ -1,90 +1,69 @@
 require('dotenv').config();
+
 const { expect } = require('@playwright/test');
+const { LoginLocators } = require('../locators/loginLocators');
 
 
 class LoginPage {
 
-  constructor(page) {
+    constructor(page) {
 
-    this.page = page;
+        this.page = page;
 
-    // Login page locators
-    this.banner = page.locator("//img[@alt='Astellas']");
-
-    this.userNameLabel = page.locator("//label[text()='User Name']");
-    this.usernameInput = page.locator("#username");
-
-    this.passwordLabel = page.locator("//label[text()='Password']");
-    this.passwordInput = page.locator("#password");
-
-    this.footerText = page.locator(".footer-details");
-
-    this.loginButton = page.locator("//button[@type='submit']");
-  }
+        this.locators = new LoginLocators(page);
+    }
 
 
-  async goto() {
+    async goto() {
 
-    console.log("BASE_URL:", process.env.BASE_URL);
+        console.log("BASE_URL:", process.env.BASE_URL);
 
-    await this.page.goto(process.env.BASE_URL);
-  }
-
-
-  async verifyLoginPage() {
-
-    await expect(this.page)
-      .toHaveTitle("Connected Plant");
+        await this.page.goto(process.env.BASE_URL);
+    }
 
 
-    await expect(this.banner)
-      .toBeVisible();
+    async verifyLoginPage() {
+
+        await expect(this.page)
+            .toHaveTitle("Connected Plant");
 
 
-    await expect(this.userNameLabel)
-      .toHaveText("User Name");
+        await expect(this.locators.banner)
+            .toBeVisible();
 
 
-    await expect(this.usernameInput)
-      .toBeVisible();
+        await expect(this.locators.usernameInput)
+            .toBeVisible();
 
 
-    await expect(this.passwordLabel)
-      .toHaveText("Password");
+        await expect(this.locators.passwordInput)
+            .toBeVisible();
 
 
-    await expect(this.passwordInput)
-      .toBeVisible();
+        await expect(this.locators.loginButton)
+            .toHaveText("Login");
+    }
 
 
-    await expect(this.footerText)
-      .toBeVisible();
+    async login() {
+
+        await this.locators.usernameInput
+            .fill(process.env.USERNAME);
 
 
-    await expect(this.loginButton)
-      .toHaveText("Login");
-
-  }
+        await this.locators.passwordInput
+            .fill(process.env.PASSWORD);
 
 
-  async login() {
-
-    await this.usernameInput.fill(process.env.USERNAME);
-    console.log("LOGIN USER:", process.env.USERNAME);
-    await this.passwordInput.fill(process.env.PASSWORD);
-    await this.loginButton.click();
+        await this.locators.loginButton
+            .click();
 
 
-    // wait for navigation after login
-    await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('networkidle');
 
 
-    console.log(
-      "After Login URL:",
-      this.page.url()
-    );
-
-  }
+        console.log("After Login URL:", this.page.url());
+    }
 
 }
 

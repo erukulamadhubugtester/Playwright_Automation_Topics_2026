@@ -2,11 +2,11 @@ import { defineConfig } from '@playwright/test';
 import { config as loadEnv } from 'dotenv';
 import { resolve } from 'path';
 
-// loadEnv({ path: resolve(__dirname, './.env'), override: true, quiet: true });
-loadEnv({
-  path: resolve(process.cwd(), '.env'),
-  override: true
-});
+loadEnv({ path: resolve(__dirname, './.env'), override: true, quiet: true });
+// loadEnv({
+//   path: resolve(process.cwd(), '.env'),
+//   override: true
+// });
 export default defineConfig({
   testDir: './tests',
 
