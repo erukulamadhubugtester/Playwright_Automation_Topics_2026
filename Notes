@@ -132,3 +132,11 @@ npx playwright test
   npm install pg
   npm install cli-table3
   npm install console-table-printer
+
+
+=> Git Push Code : 
+git status
+git add .
+git status
+git commit -m "Added Playwright automation , project updates"
+git push
