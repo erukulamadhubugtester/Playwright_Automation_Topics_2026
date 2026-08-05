@@ -3,7 +3,7 @@ const base = require('@playwright/test');
 const { LoginPage } = require('../pages/LoginPage');
 const { DashboardPage } = require('../pages/DashboardPage');
 const { EdgePuckManagerPage } = require('../pages/EdgePuckManagerPage');
-// const { NotificationPage } = require('../pages/NotificationPage');
+const { NotificationPage } = require('../pages/NotificationPage');
 
 const test = base.test.extend({
     pages: async ({ page }, use) => {
@@ -20,7 +20,7 @@ const test = base.test.extend({
         await use({
             loginPage,
             dashboardPage,
-            edgePuckManagerPage
+            edgePuckManagerPage,
         });
     }
 });

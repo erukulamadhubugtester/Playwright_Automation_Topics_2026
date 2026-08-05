@@ -123,3 +123,12 @@ npx playwright test
 * Use `npx playwright test` to run all tests
 
 ---
+
+
+
+
+
+=> Install PostgreSQL package
+  npm install pg
+  npm install cli-table3
+  npm install console-table-printer

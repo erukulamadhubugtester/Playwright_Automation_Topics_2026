@@ -22,9 +22,13 @@
     "allure-playwright": "^3.10.2"
   },
   "dependencies": {
+    "cli-table3": "^0.6.5",
+    "console-table-printer": "^2.16.1",
     "csv-parser": "^3.2.1",
     "dotenv": "^17.4.2",
     "exceljs": "^3.10.0",
-    "pdf-parse": "^1.1.1"
+    "mqtt": "^5.15.2",
+    "pdf-parse": "^1.1.1",
+    "xlsx": "^0.18.5"
   }
 }

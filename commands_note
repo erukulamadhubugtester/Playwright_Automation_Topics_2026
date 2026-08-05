@@ -25,6 +25,10 @@
             npx allure open ./allure-report
 
 
+npm install cli-table3
+
+npm install mqtt
+
 
 
 

@@ -1,12 +1,30 @@
-import { defineConfig } from '@playwright/test';
+const { defineConfig } = require('@playwright/test');
 import { config as loadEnv } from 'dotenv';
 import { resolve } from 'path';
 
-loadEnv({ path: resolve(__dirname, './.env'), override: true, quiet: true });
-// loadEnv({
-//   path: resolve(process.cwd(), '.env'),
-//   override: true
-// });
+loadEnv({
+  path: resolve(__dirname, './.env'),
+  override: true,
+  quiet: true,
+});
+
+const commonUse = {
+  ignoreHTTPSErrors: true,
+  headless: false,
+  viewport: null,
+  screenshot: 'only-on-failure',
+  trace: 'on',
+
+  launchOptions: {
+    args: [
+      '--start-maximized',
+      '--ignore-certificate-errors',
+      '--allow-running-insecure-content',
+      '--disable-web-security',
+    ],
+  },
+};
+
 export default defineConfig({
   testDir: './tests',
 
@@ -18,21 +36,53 @@ export default defineConfig({
 
   reporter: 'html',
 
+  // Default browser if no project is specified
   use: {
     browserName: 'chromium',
-    ignoreHTTPSErrors: true,
-    headless: false,
-    viewport: null,
-    screenshot: 'only-on-failure',
-    trace: 'on',
-
-    launchOptions: {
-      args: [
-        '--start-maximized',
-        '--ignore-certificate-errors',
-        '--allow-running-insecure-content',
-        '--disable-web-security',
-      ],
-    },
+    ...commonUse,
   },
+
+  projects: [
+    {
+      name: 'Chromium',
+      use: {
+        browserName: 'chromium',
+        ...commonUse,
+      },
+    },
+
+    {
+      name: 'Google Chrome',
+      use: {
+        browserName: 'chromium',
+        channel: 'chrome',
+        ...commonUse,
+      },
+    },
+
+    {
+      name: 'Microsoft Edge',
+      use: {
+        browserName: 'chromium',
+        channel: 'msedge',
+        ...commonUse,
+      },
+    },
+
+    {
+      name: 'Firefox',
+      use: {
+        browserName: 'firefox',
+        ...commonUse,
+      },
+    },
+
+    {
+      name: 'WebKit',
+      use: {
+        browserName: 'webkit',
+        ...commonUse,
+      },
+    },
+  ],
 });
